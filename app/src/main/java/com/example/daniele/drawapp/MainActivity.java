@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     String modelFile="model.tflite";
     Interpreter tflite;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonTapTest(View v){
-        textView.setText("3");
+   //     float[][] inp;//=new float[][]{{0,0}};
+   //     float[][] out=new float[][]{{0}};
+   //     tflite.run(inp,out);
+        textView.setText("3"); //TODO change to output of final layer
     }
 
 
