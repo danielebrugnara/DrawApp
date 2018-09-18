@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     int DIM_Y=28;
     float MAX_BMP=255;
 
-    float[][] inp=new float [DIM_Y*DIM_X][1];
-    float[][] out=new float [10][1];
+    float[][][][] inp=new float [1][DIM_X][DIM_Y][1];
+    float[][] out=new float [1][10];
 
 
 
@@ -71,15 +71,16 @@ public class MainActivity extends AppCompatActivity {
 
         bitmap=ShrinkBitmap(bitmap, DIM_X, DIM_Y);
 
-        ImageView imageView=(ImageView) findViewById(R.id.imageView);
+        ImageView imageView=findViewById(R.id.imageView);
         imageView.setImageBitmap(bitmap);
 
         GenerateVector(bitmap);
-   //     float[][] inp;//=new float[][]{{0,0}};
-   //     float[][] out=new float[][]{{0}};
+ 
 
-    //    tflite.run(inp,out);
-    //    textView.setText(String.valueOf(GetMaxIndex(out)));
+        tflite.run(inp,out);
+        textView.setText(String.valueOf(GetMaxIndex(out)));
+        textView.setText("ad");
+
     }
 
 
@@ -111,21 +112,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GenerateVector(Bitmap bm){
-            int sum = 0;
-            for (int i = 0; i < DIM_X; i++) {
+         for (int i = 0; i < DIM_X; i++) {
                 for (int j = 0; j < DIM_Y; j++) {
-                    sum = i * DIM_X + j;
-                    inp[sum][0] = bm.getPixel(i, j) / MAX_BMP;
+                    inp[0][i][j][0] = bm.getPixel(i, j) / MAX_BMP;
                 }
             }
     }
+
 
     public static int GetMaxIndex(float[][] inputArray){
         float maxValue = inputArray[0][0];
         int maxIndex = 0;
         for(int i=1;i < inputArray.length;i++){
-            if(inputArray[i][0] > maxValue){
-                maxValue = inputArray[i][0];
+            if(inputArray[0][i] > maxValue){
+                maxValue = inputArray[0][i];
                 maxIndex = i;
             }
         }
