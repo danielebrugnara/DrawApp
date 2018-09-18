@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import org.tensorflow.lite.Interpreter;
 
@@ -65,11 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonTapTest(View v){
         bitmap=drawView.getmBitmap();
+
+
+
         bitmap=ShrinkBitmap(bitmap, DIM_X, DIM_Y);
+
+        ImageView imageView=(ImageView) findViewById(R.id.imageView);
+        imageView.setImageBitmap(bitmap);
+
         GenerateVector(bitmap);
    //     float[][] inp;//=new float[][]{{0,0}};
    //     float[][] out=new float[][]{{0}};
-        tflite.run(inp,out);
+
+    //    tflite.run(inp,out);
     //    textView.setText(String.valueOf(GetMaxIndex(out)));
     }
 
@@ -95,13 +104,13 @@ public class MainActivity extends AppCompatActivity {
         matrix.postScale(scaleWidth, scaleHeight);
 
         // "RECREATE" THE NEW BITMAP
+
         Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
+                bm, 0,0, width, height, matrix, false);
         return resizedBitmap;
     }
 
     private void GenerateVector(Bitmap bm){
-            float prova = (float) 0.1;
             int sum = 0;
             for (int i = 0; i < DIM_X; i++) {
                 for (int j = 0; j < DIM_Y; j++) {
