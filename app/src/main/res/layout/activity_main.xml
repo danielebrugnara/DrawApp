@@ -8,7 +8,7 @@ tools:context="com.example.daniele.drawapp.MainActivity">
 
     <com.example.daniele.drawapp.DrawView
         android:id="@+id/drawView"
-        android:layout_width="wrap_content"
+        android:layout_width="303dp"
         android:layout_height="303dp" />
 
     <Button
@@ -38,11 +38,11 @@ tools:context="com.example.daniele.drawapp.MainActivity">
 
     <Button
         android:id="@+id/buttontest"
-        android:layout_width="69dp"
-        android:layout_height="158dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="3dp"
+        android:layout_width="81dp"
+        android:layout_height="303dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/drawView"
         android:onClick="onButtonTapTest"
         android:text="Test!"
         android:visibility="visible" />

@@ -2,6 +2,9 @@ package com.example.daniele.drawapp;
 
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     String modelFile="model.tflite";
     Interpreter tflite;
+
+    Bitmap bitmap;
 
 
 
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonTapTest(View v){
+        bitmap=drawView.getmBitmap();
+        bitmap=ShrinkBitmap(bitmap, 28, 28);
    //     float[][] inp;//=new float[][]{{0,0}};
    //     float[][] out=new float[][]{{0}};
    //     tflite.run(inp,out);
@@ -65,4 +72,20 @@ public class MainActivity extends AppCompatActivity {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
     }
 
+
+    public Bitmap ShrinkBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap;
+    }
 }

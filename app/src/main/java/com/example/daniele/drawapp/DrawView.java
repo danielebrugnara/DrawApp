@@ -91,6 +91,7 @@ public class DrawView extends View {
         invalidate();
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
@@ -161,5 +162,9 @@ public class DrawView extends View {
         }
 
         return true;
+    }
+
+    public Bitmap getmBitmap() {
+        return mBitmap;
     }
 }
