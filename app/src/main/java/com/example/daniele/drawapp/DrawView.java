@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class DrawView extends View {
 
-    public static int BRUSH_SIZE = 70;
+    public static int BRUSH_SIZE = 60;
     public static final int DEFAULT_COLOR = Color.BLACK;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
     private static final float TOUCH_TOLERANCE = 4;
@@ -55,7 +55,7 @@ public class DrawView extends View {
         mPaint.setAlpha(0xff);
         normal();
         mEmboss = new EmbossMaskFilter(new float[] {1, 1, 1}, 0.4f, 6, 3.5f);
-        mBlur = new BlurMaskFilter(50, BlurMaskFilter.Blur.NORMAL);
+        mBlur = new BlurMaskFilter(10, BlurMaskFilter.Blur.NORMAL);
     }
 
     public void init(DisplayMetrics metrics) {
