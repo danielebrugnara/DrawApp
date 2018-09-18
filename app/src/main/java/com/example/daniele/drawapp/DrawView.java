@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class DrawView extends View {
 
-    public static int BRUSH_SIZE = 40;
+    public static int BRUSH_SIZE = 120;
     public static final int DEFAULT_COLOR = Color.BLACK;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
     private static final float TOUCH_TOLERANCE = 4;

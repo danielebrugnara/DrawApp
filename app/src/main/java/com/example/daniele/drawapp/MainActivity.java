@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
 
         GenerateVector(bitmap);
- 
+
 
         tflite.run(inp,out);
         textView.setText(String.valueOf(GetMaxIndex(out)));
-        textView.setText("ad");
 
     }
 
@@ -114,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
     private void GenerateVector(Bitmap bm){
          for (int i = 0; i < DIM_X; i++) {
                 for (int j = 0; j < DIM_Y; j++) {
-                    inp[0][i][j][0] = bm.getPixel(i, j) / MAX_BMP;
+                    inp[0][i][j][0] = 1-convertToGreyScale(bm.getPixel(i, j));
+                    Log.i(String.valueOf(i*DIM_X+j), String.valueOf(inp[0][i][j][0]));
                 }
             }
     }
@@ -129,8 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 maxIndex = i;
             }
         }
-    //    return maxValue;
+     //   return maxValue;
         return maxIndex;
     }
 
+    private float convertToGreyScale(int color) {
+        return (((color >> 16) & 0xFF) + ((color >> 8) & 0xFF) + (color & 0xFF)) / 3.0f / 255.0f;
+    }
 }
