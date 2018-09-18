@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
          for (int i = 0; i < DIM_X; i++) {
                 for (int j = 0; j < DIM_Y; j++) {
                     inp[0][i][j][0] = 1-convertToGreyScale(bm.getPixel(i, j));
-                    Log.i(String.valueOf(i*DIM_X+j), String.valueOf(inp[0][i][j][0]));
                 }
             }
     }
@@ -124,10 +123,11 @@ public class MainActivity extends AppCompatActivity {
     public static int GetMaxIndex(float[][] inputArray){
         float maxValue = inputArray[0][0];
         int maxIndex = 0;
-        for(int i=1;i < inputArray.length;i++){
+        for(int i=1;i < inputArray[0].length;i++){
             if(inputArray[0][i] > maxValue){
                 maxValue = inputArray[0][i];
                 maxIndex = i;
+                Log.i(String.valueOf(i), String.valueOf(inputArray[0][i]));
             }
         }
      //   return maxValue;
