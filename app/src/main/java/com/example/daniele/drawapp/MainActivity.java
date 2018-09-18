@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
         drawView.init(metrics);
     }
 
-
+    public void onButtonTap(View v){
+        drawView.clear();
+    }
 
 
 }
