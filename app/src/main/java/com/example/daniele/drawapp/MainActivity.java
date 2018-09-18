@@ -5,6 +5,7 @@ import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.sql.Array;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
     Bitmap bitmap;
 
-    float[][] inp;
-    float[][] out;
-
     int DIM_X=28;
     int DIM_Y=28;
     float MAX_BMP=255;
+
+    float[][] inp=new float [DIM_Y*DIM_X][1];
+    float[][] out=new float [10][1];
+
+
 
 
     @Override
@@ -65,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         GenerateVector(bitmap);
    //     float[][] inp;//=new float[][]{{0,0}};
    //     float[][] out=new float[][]{{0}};
-   //     tflite.run(inp,out);
-        textView.setText("3"); //TODO change to output of final layer
+        tflite.run(inp,out);
+    //    textView.setText(String.valueOf(GetMaxIndex(out)));
     }
 
 
@@ -97,11 +101,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void GenerateVector(Bitmap bm){
-        for (int i = 0; i < DIM_X; i++) {
-            for (int j = 0; i < DIM_Y; i++) {
-                inp[i+j][0]=1;//bm.getPixel(i, j)/MAX_BMP;
+            float prova = (float) 0.1;
+            int sum = 0;
+            for (int i = 0; i < DIM_X; i++) {
+                for (int j = 0; j < DIM_Y; j++) {
+                    sum = i * DIM_X + j;
+                    inp[sum][0] = bm.getPixel(i, j) / MAX_BMP;
+                }
+            }
+    }
+
+    public static int GetMaxIndex(float[][] inputArray){
+        float maxValue = inputArray[0][0];
+        int maxIndex = 0;
+        for(int i=1;i < inputArray.length;i++){
+            if(inputArray[i][0] > maxValue){
+                maxValue = inputArray[i][0];
+                maxIndex = i;
             }
         }
+    //    return maxValue;
+        return maxIndex;
     }
 
 }
