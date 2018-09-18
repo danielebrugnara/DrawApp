@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     Bitmap bitmap;
 
+    float[][] inp;
+    float[][] out;
+
+    int DIM_X=28;
+    int DIM_Y=28;
+    float MAX_BMP=255;
 
 
     @Override
@@ -55,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonTapTest(View v){
         bitmap=drawView.getmBitmap();
-        bitmap=ShrinkBitmap(bitmap, 28, 28);
+        bitmap=ShrinkBitmap(bitmap, DIM_X, DIM_Y);
+        GenerateVector(bitmap);
    //     float[][] inp;//=new float[][]{{0,0}};
    //     float[][] out=new float[][]{{0}};
    //     tflite.run(inp,out);
@@ -73,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public Bitmap ShrinkBitmap(Bitmap bm, int newWidth, int newHeight) {
+    private Bitmap ShrinkBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -88,4 +95,13 @@ public class MainActivity extends AppCompatActivity {
                 bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
     }
+
+    private void GenerateVector(Bitmap bm){
+        for (int i = 0; i < DIM_X; i++) {
+            for (int j = 0; i < DIM_Y; i++) {
+                inp[i+j][0]=1;//bm.getPixel(i, j)/MAX_BMP;
+            }
+        }
+    }
+
 }
